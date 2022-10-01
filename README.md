@@ -15,12 +15,16 @@ the following pages are available:
 
 ## Development
 
+```html
 _<iframe src="http://localhost:3000/wallets-and-balances?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9&page=nfts"> </iframe>_
+```
 
 When the token expires, the widget will send a post message to the iframe component with the following payload:
+```json
 _{
   expiredToken: true
 }_
+```
 
 The parent component should listen to this message and reload the iframe with a new token.
 
