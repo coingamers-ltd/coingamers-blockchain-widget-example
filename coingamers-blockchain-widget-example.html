@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coingamers Widget Iframe usage</title>
+</head>
+<style>
+    iframe {
+        width: 2200px;
+        height: 1200px;
+    }
+</style>
+<body>
+<script>
+    window.onload = function () {
+        /*
+        For the purpose of using the Coingamers Widget you should use an iframe.
+        The iframe should be placed on your website and the src attribute should be set to the following:
+        https://widget.coingamers.io/wallets-and-balances?token=BEARER_TOKEN&page=PAGE;
+        Where BEARER_TOKEN is the token you received from us and PAGE is the page you want to display.
+        The following example shows how to use the iframe to display the wallets and balances page.
+        */
+
+        //The iframe should be placed on your website and the src attribute should be set to the following:
+        let iframe = document.createElement('iframe');
+
+        //The src attribute should be set to the following:
+        let baseUrl = 'https://widget.coingamers.io/wallets-and-balances';
+
+        //Where BEARER_TOKEN is the token you received from us
+        let bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImJkZDAyMDg5LTY0MTEtNGJjMi1hNzJiLTZiYTk2NzUyMDM4OCIsInBsYXllci1pZCI6IkFzZDYiLCJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiI5MGM5ZGVmNy03N2E4LTQ3NjUtYTkxOS05MDNmM2FhYTNkNGQiLCJpYXQiOiI5LzE1LzIwMjIgMTA6MDY6MzIgQU0iLCJleHAiOjE2NjQyNjk4NTQsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ==.oSmDG-p7pNGhpchVe6MpVBBCdnWEV0pmRHEsCsMK_Z4'
+
+        //Where PAGE is the page you want to display. This page is optional and if not provided the default page will be displayed.
+        let page = 'nft';
+        iframe.src = `${baseUrl}?token=${bearerToken}&page=${page}`;
+        document.body.appendChild(iframe);
+
+        //The following example shows how to receive notification from the widget for expired token and how to send a new valid token again.
+        window.addEventListener('message', function (e) {
+
+            //The message will be sent from the widget to the parent window.
+            if (e.data.expiredToken) {
+                //The token has expired, and you should send a new valid token through a postMessage with property token.
+                iframe.contentWindow.postMessage({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImJkZDAyMDg5LTY0MTEtNGJjMi1hNzJiLTZiYTk2NzUyMDM4OCIsInBsYXllci1pZCI6IkFzZDYiLCJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiI5MGM5ZGVmNy03N2E4LTQ3NjUtYTkxOS05MDNmM2FhYTNkNGQiLCJpYXQiOiI5LzE1LzIwMjIgMTA6MDY6MzIgQU0iLCJleHAiOjE2ODQ4MzYzNzgsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ.oSmDG-p7pNGhpchVe6MpVBBCdnWEV0pmRHEsCsMK_Z4'}, "http://localhost:3000/wallets-and-balances");
+            }
+        });
+    }
+</script>
+</body>
+</html>
