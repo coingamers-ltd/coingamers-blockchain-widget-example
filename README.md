@@ -14,7 +14,7 @@ the following pages are available:
   - 'history' - the page that will be loaded if the page parameter is provided with the value ‘history’.
 
 ## Development
-·         history -optional
+
 _<iframe src="http://localhost:3000/wallets-and-balances?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9&page=nfts"> </iframe>_
 
 When the token expires, the widget will send a post message to the iframe component with the following payload:
@@ -24,10 +24,13 @@ _{
 
 The parent component should listen to this message and reload the iframe with a new token.
 
+```javascript
 _window.addEventListener('message', function (e) {
         if(e.data.expiredToken){
             const iframe = document.getElementsByTagName('iframe')[0];
             iframe.contentWindow.postMessage({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…'} , '*');}
 });_
+```
+
 
 
