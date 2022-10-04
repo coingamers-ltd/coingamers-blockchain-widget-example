@@ -11,7 +11,7 @@
     }
 </style>
 <body>
-<script>
+<script type="application/javascript">
     window.onload = function () {
         /*
         For the purpose of using the Coingamers Widget you should use an iframe.
@@ -25,13 +25,13 @@
         let iframe = document.createElement('iframe');
 
         //The src attribute should be set to the following:
-        let baseUrl = 'https://widget.coingamers.io/wallets-and-balances';
+        let baseUrl = 'http://localhost:3000/wallets-and-balances';
 
         //Where BEARER_TOKEN is the token you received from us
-        let bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImJkZDAyMDg5LTY0MTEtNGJjMi1hNzJiLTZiYTk2NzUyMDM4OCIsInBsYXllci1pZCI6IkFzZDYiLCJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiI5MGM5ZGVmNy03N2E4LTQ3NjUtYTkxOS05MDNmM2FhYTNkNGQiLCJpYXQiOiI5LzE1LzIwMjIgMTA6MDY6MzIgQU0iLCJleHAiOjE2NjQyNjk4NTQsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ==.oSmDG-p7pNGhpchVe6MpVBBCdnWEV0pmRHEsCsMK_Z4'
+        let bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImFhMDljMDdmLWRiNGYtNDU2ZC04ZTQ3LTVlZmQ2Mzg3NDFkZCIsInBsYXllci1pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMiIsInBsYXllci11dWlkIjoiZmJjZDQyMWYtMTE1NC00NDA5LTgwOGMtNjQ1OTRhMzliNDA0Iiwic3ViIjoiSldUU2VydmljZUFjY2Vzc1Rva2VuIiwianRpIjoiNGI3MWRlOGMtNTVlYy00Y2IyLTk3M2UtZjNiZTQxOWUzYTAxIiwiaWF0IjoiNC4xMC4yMDIyINCzLiAxMDozNDo0MyIsImV4cCI6MTY2NDg3OTgwMywiaXNzIjoiSldUQXV0aGVudGljYXRpb25TZXJ2ZXIiLCJhdWQiOiJKV1RTZXJ2aWNlUG9zdG1hbkNsaWVudCJ9.2MfV8AAirYfqhoJuHj0RUoeSeVJD7brg8b_yq2exQHU'
 
         //Where PAGE is the page you want to display. This page is optional and if not provided the default page will be displayed.
-        let page = 'nft';
+        let page = 'nfts';
         iframe.src = `${baseUrl}?token=${bearerToken}&page=${page}`;
         document.body.appendChild(iframe);
 
@@ -40,8 +40,9 @@
 
             //The message will be sent from the widget to the parent window.
             if (e.data.expiredToken) {
+                console.log('Token expired');
                 //The token has expired, and you should send a new valid token through a postMessage with property token.
-                iframe.contentWindow.postMessage({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImJkZDAyMDg5LTY0MTEtNGJjMi1hNzJiLTZiYTk2NzUyMDM4OCIsInBsYXllci1pZCI6IkFzZDYiLCJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiI5MGM5ZGVmNy03N2E4LTQ3NjUtYTkxOS05MDNmM2FhYTNkNGQiLCJpYXQiOiI5LzE1LzIwMjIgMTA6MDY6MzIgQU0iLCJleHAiOjE2ODQ4MzYzNzgsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ.oSmDG-p7pNGhpchVe6MpVBBCdnWEV0pmRHEsCsMK_Z4'}, "http://localhost:3000/wallets-and-balances");
+                iframe.contentWindow.postMessage({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImFhMDljMDdmLWRiNGYtNDU2ZC04ZTQ3LTVlZmQ2Mzg3NDFkZCIsInBsYXllci1pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMiIsInBsYXllci11dWlkIjoiZmJjZDQyMWYtMTE1NC00NDA5LTgwOGMtNjQ1OTRhMzliNDA0Iiwic3ViIjoiSldUU2VydmljZUFjY2Vzc1Rva2VuIiwianRpIjoiMjc4NGUyOGMtMGRhMy00YjRiLTg1MjYtZGJhOWQ0ZjZmM2U1IiwiaWF0IjoiMTAvNC8yMDIyIDEwOjI5OjUyIEFNIiwiZXhwIjoxNjY2Njc5MzkyLCJpc3MiOiJKV1RBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkpXVFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.kyjI2qKVR2-9johrpOdLi2UZkMJTKcm5-okimQGr4AA'}, "http://localhost:3000/wallets-and-balances");
             }
         });
     }
