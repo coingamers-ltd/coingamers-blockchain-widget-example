@@ -28,7 +28,7 @@ function Widget({playedId, bearerToken, serverToken}) {
                 });
             }
         });
-    }, []);
+    }, [playedId, serverToken]);
 
     useEffect(() => {
         if (bearerToken) {

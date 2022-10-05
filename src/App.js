@@ -2,7 +2,7 @@ import './App.css';
 import {Box, Button, Container, FormGroup, Grid, Paper, TextField} from "@mui/material";
 import Widget from "./Widget";
 import {clientTokenRequest, serverTokenRequest} from "./requests";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 function App() {
 
@@ -12,14 +12,13 @@ function App() {
     const [playerId, setPlayerId] = useState('00000000-0000-0000-0000-000000000002');
 
 
-
     const handleChanges = (e) => {
         setPlayerId(e.target.value)
     }
 
     const serverTokenRequestAction = async () => {
 
-        if(serverToken && bearerToken){
+        if (serverToken && bearerToken) {
             setServerToken('');
             setBearerToken('');
             setLoadWidget(false);
@@ -55,15 +54,20 @@ function App() {
                             noValidate
                             autoComplete="off">
                             <FormGroup>
-                                <Button color={'error'}  variant="contained" size={'small'} onClick={serverTokenRequestAction}>Request
+                                <Button color={'error'} variant="contained" size={'small'}
+                                        onClick={serverTokenRequestAction}>Request
                                     new server token</Button>
                             </FormGroup> <FormGroup>
-                            <TextField onChange={handleChanges} disabled={!serverToken} id="player-id" label="Player Id GUID" variant="outlined"
+                            <TextField onChange={handleChanges} disabled={!serverToken} id="player-id"
+                                       label="Player Id GUID" variant="outlined"
                                        defaultValue={playerId}/>
                         </FormGroup> <FormGroup>
-                            <Button color={'warning'}  disabled={!serverToken} onClick={clientTokenRequestAction} variant="contained" size={'small'}>Request new client token</Button>
+                            <Button color={'warning'} disabled={!serverToken} onClick={clientTokenRequestAction}
+                                    variant="contained" size={'small'}>Request new client token</Button>
                         </FormGroup> <FormGroup>
-                            <Button color={'success'} disabled={(!serverToken || !bearerToken)} onClick={loadWidgetAction} variant="contained" size={'small'}>Load the widget</Button>
+                            <Button color={'success'} disabled={(!serverToken || !bearerToken)}
+                                    onClick={loadWidgetAction} variant="contained" size={'small'}>Load the
+                                widget</Button>
                         </FormGroup>
                         </Box>
                     </Paper>
