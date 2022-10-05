@@ -42,7 +42,7 @@
             if (e.data.expiredToken) {
                 console.log('Token expired');
                 //The token has expired, and you should send a new valid token through a postMessage with property token.
-                iframe.contentWindow.postMessage({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImFhMDljMDdmLWRiNGYtNDU2ZC04ZTQ3LTVlZmQ2Mzg3NDFkZCIsInBsYXllci1pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMiIsInBsYXllci11dWlkIjoiZmJjZDQyMWYtMTE1NC00NDA5LTgwOGMtNjQ1OTRhMzliNDA0Iiwic3ViIjoiSldUU2VydmljZUFjY2Vzc1Rva2VuIiwianRpIjoiMjc4NGUyOGMtMGRhMy00YjRiLTg1MjYtZGJhOWQ0ZjZmM2U1IiwiaWF0IjoiMTAvNC8yMDIyIDEwOjI5OjUyIEFNIiwiZXhwIjoxNjY2Njc5MzkyLCJpc3MiOiJKV1RBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkpXVFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.kyjI2qKVR2-9johrpOdLi2UZkMJTKcm5-okimQGr4AA'}, "http://localhost:3000/wallets-and-balances");
+                iframe.contentWindow.postMessage({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbi10eXBlIjoiY2xpZW50LXRva2VuIiwiZ2FtZS1pZCI6ImFhMDljMDdmLWRiNGYtNDU2ZC04ZTQ3LTVlZmQ2Mzg3NDFkZCIsInBsYXllci1pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMiIsInBsYXllci11dWlkIjoiZmJjZDQyMWYtMTE1NC00NDA5LTgwOGMtNjQ1OTRhMzliNDA0Iiwic3ViIjoiSldUU2VydmljZUFjY2Vzc1Rva2VuIiwianRpIjoiMjc4NGUyOGMtMGRhMy00YjRiLTg1MjYtZGJhOWQ0ZjZmM2U1IiwiaWF0IjoiMTAvNC8yMDIyIDEwOjI5OjUyIEFNIiwiZXhwIjoxNjY2Njc5MzkyLCJpc3MiOiJKV1RBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkpXVFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.kyjI2qKVR2-9johrpOdLi2UZkMJTKcm5-okimQGr4AA'}, "*");
             }
         });
     }
