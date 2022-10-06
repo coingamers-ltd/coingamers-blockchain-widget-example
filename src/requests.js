@@ -7,8 +7,8 @@ export const serviceEnvUrl = (uri) => {
 export const serverTokenRequest = async () => {
     try {
         return axios.post( serviceEnvUrl('v1/auth'), {
-            "clientId": "time-shuffle-admin",
-            "clientSecret": "0015427bb7c34c3e843c60d2739f1b41"
+            "clientId": "dragon-race-server",
+            "clientSecret": "9vhm4ow4siekf2b8dix5zr3u7mldufdinuallal9jo1kq6r8"
         },{}).then((response) => {
             return response.data;
         })

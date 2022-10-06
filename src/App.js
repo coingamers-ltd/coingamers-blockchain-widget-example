@@ -12,6 +12,7 @@ function App() {
     const [playerId, setPlayerId] = useState('00000000-0000-0000-0000-000000000002');
 
 
+
     const handleChanges = (e) => {
         setPlayerId(e.target.value)
     }
@@ -58,14 +59,14 @@ function App() {
                                         onClick={serverTokenRequestAction}>Request
                                     new server token</Button>
                             </FormGroup> <FormGroup>
-                            <TextField onChange={handleChanges} disabled={!serverToken} id="player-id"
+                            <TextField onChange={handleChanges} disabled={!serverToken || (serverToken && bearerToken)} id="player-id"
                                        label="Player Id GUID" variant="outlined"
                                        defaultValue={playerId}/>
                         </FormGroup> <FormGroup>
-                            <Button color={'warning'} disabled={!serverToken} onClick={clientTokenRequestAction}
+                            <Button color={'warning'} disabled={!serverToken || (serverToken && bearerToken)} onClick={clientTokenRequestAction}
                                     variant="contained" size={'small'}>Request new client token</Button>
                         </FormGroup> <FormGroup>
-                            <Button color={'success'} disabled={(!serverToken || !bearerToken)}
+                            <Button color={'success'} disabled={(!serverToken || !bearerToken) || loadWidget == true}
                                     onClick={loadWidgetAction} variant="contained" size={'small'}>Load the
                                 widget</Button>
                         </FormGroup>
