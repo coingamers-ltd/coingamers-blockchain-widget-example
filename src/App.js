@@ -130,14 +130,12 @@ function App() {
                     </Grid>
                 </Grid>
             </Container>
-            <Container maxWidth={'xl'}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        {!!loadWidget &&
-                            <Widget playedId={state.playerId} bearerToken={bearerToken} serverToken={serverToken}/>}
-                    </Grid>
+            <Grid container>
+                <Grid item xs={12}>
+                    {!!loadWidget &&
+                        <Widget playedId={state.playerId} bearerToken={bearerToken} serverToken={serverToken}/>}
                 </Grid>
-            </Container>
+            </Grid>
         </div>);
 }
 
