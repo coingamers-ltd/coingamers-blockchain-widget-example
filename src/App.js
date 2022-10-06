@@ -66,7 +66,7 @@ function App() {
                             <Button color={'warning'} disabled={!serverToken || (serverToken && bearerToken)} onClick={clientTokenRequestAction}
                                     variant="contained" size={'small'}>Request new client token</Button>
                         </FormGroup> <FormGroup>
-                            <Button color={'success'} disabled={(!serverToken || !bearerToken) || loadWidget == true}
+                            <Button color={'success'} disabled={(!serverToken || !bearerToken) || loadWidget === true}
                                     onClick={loadWidgetAction} variant="contained" size={'small'}>Load the
                                 widget</Button>
                         </FormGroup>
