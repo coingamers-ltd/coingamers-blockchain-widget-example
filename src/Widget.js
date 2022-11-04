@@ -39,7 +39,7 @@ function Widget({playedId, bearerToken, serverToken, isExpired}) {
                 e.stopPropagation();
             });
         }
-    }, [playedId, serverToken]);
+    }, [playedId, serverToken, isExpired]);
 
     useEffect(() => {
         if (bearerToken) {
