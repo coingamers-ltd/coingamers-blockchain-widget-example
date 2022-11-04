@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Alert, Box, LinearProgress, Snackbar} from "@mui/material";
+import {Box, LinearProgress} from "@mui/material";
 import {clientTokenRequest} from "./requests";
-import {useJwt} from "react-jwt";
 
 Widget.propTypes = {};
 
@@ -17,7 +16,6 @@ function Widget({playedId, bearerToken, serverToken, isExpired}) {
     const baseWidgetUrl = 'http://coingamers-widget-2.s3-website.eu-central-1.amazonaws.com/wallets-and-balances';
     const [fullURL, setFullUrl] = useState('');
     let eventListener = null;
-
 
 
     useEffect(() => {

@@ -38,7 +38,7 @@ function App() {
             setLoadWidget(false);
         }
 
-    },[isExpired]);
+    },[isExpired, serverToken]);
 
     const handleChanges = (e) => {
         setState(prevState => {
