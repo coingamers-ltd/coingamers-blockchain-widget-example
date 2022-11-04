@@ -15,13 +15,10 @@ function Widget({playedId, bearerToken, serverToken, isExpired}) {
     const iframe = useRef();
     const baseWidgetUrl = 'http://coingamers-widget-2.s3-website.eu-central-1.amazonaws.com/wallets-and-balances';
     const [fullURL, setFullUrl] = useState('');
-    let eventListener = null;
-
 
     useEffect(() => {
 
-        if (playedId && serverToken && !eventListener) {
-            eventListener = true;
+        if (playedId && serverToken) {
 
             window.addEventListener('message', function (e) {
                 //The message will be sent from the widget to the parent window.
