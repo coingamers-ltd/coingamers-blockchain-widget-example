@@ -5,6 +5,8 @@ export const serviceEnvUrl = (uri) => {
 }
 
 export const serverTokenRequest = async (clientId, clientSecret) => {
+
+    console.log(clientId, clientSecret)
     return axios.post( serviceEnvUrl('v1/auth'), {
         "clientId": clientId,
         "clientSecret": clientSecret
@@ -15,7 +17,7 @@ export const serverTokenRequest = async (clientId, clientSecret) => {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
-            alert(error.response.data.errors[0] || error.response.data.errors.credentials);
+            console.log(error.response.data.errors[0] || error.response.data.errors.credentials);
 
         }else {
             console.log('Error', error.message);
@@ -38,7 +40,7 @@ export const clientTokenRequest = async (playerId,accessToken) => {
             console.log(error.response.status);
             console.log(error.response.headers);
             console.log(error.response.data.errors);
-            alert(error.response.data.errors[0] || error.response.data.errors.credentials);
+            console.log(error.response.data.errors[0] || error.response.data.errors.credentials);
         }else {
             console.log('Error', error.message);
         }

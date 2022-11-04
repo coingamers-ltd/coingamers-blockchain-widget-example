@@ -24,12 +24,16 @@ function Widget({playedId, bearerToken, serverToken, isExpired}) {
                 //The message will be sent from the widget to the parent window.
                 if (e.data.expiredToken) {
                     console.warn('Token expired');
-                    //The token has expired, and you should send a new valid token through a postMessage with property token.
-                    clientTokenRequest(playedId, serverToken).then((response) => {
-                        if (!isExpired) {
+
+                    //If the server token is expired, we need to request a new one.
+                    if (!isExpired) {
+                        //When the client token has expired, and you should send a new valid token through a postMessage with property token.
+                        clientTokenRequest(playedId, serverToken).then((response) => {
                             iframe.current.contentWindow.postMessage({token: response?.accessToken}, '*');
-                        }
-                    });
+
+                        });
+                    }
+
                 }
             }, false);
         }
