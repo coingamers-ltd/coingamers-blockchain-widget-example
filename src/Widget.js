@@ -1,6 +1,7 @@
-import React, {useEffect, useRef} from 'react';
-import {Box, LinearProgress} from "@mui/material";
+import React, {useEffect, useRef, useState} from 'react';
+import {Alert, Box, LinearProgress, Snackbar} from "@mui/material";
 import {clientTokenRequest} from "./requests";
+import {useJwt} from "react-jwt";
 
 Widget.propTypes = {};
 
@@ -11,23 +12,38 @@ const sxStyle = {
     }
 }
 
-function Widget({playedId, bearerToken, serverToken}) {
+function Widget({playedId, bearerToken, serverToken, isExpired}) {
     const iframe = useRef();
     const baseWidgetUrl = 'http://coingamers-widget-2.s3-website.eu-central-1.amazonaws.com/wallets-and-balances';
-    const [fullURL, setFullUrl] = React.useState('');
+    const [fullURL, setFullUrl] = useState('');
+    let eventListener = null;
+
+
 
     useEffect(() => {
 
-        window.addEventListener('message', function (e) {
-            //The message will be sent from the widget to the parent window.
-            if (e.data.expiredToken) {
-                console.warn('Token expired');
-                //The token has expired, and you should send a new valid token through a postMessage with property token.
-                clientTokenRequest(playedId, serverToken).then((response) => {
-                    iframe.current.contentWindow.postMessage({token: response?.accessToken}, '*');
-                });
-            }
-        });
+        if (playedId && serverToken && !eventListener) {
+            eventListener = true;
+
+            window.addEventListener('message', function (e) {
+                //The message will be sent from the widget to the parent window.
+                if (e.data.expiredToken) {
+                    console.warn('Token expired');
+                    //The token has expired, and you should send a new valid token through a postMessage with property token.
+                    clientTokenRequest(playedId, serverToken).then((response) => {
+                        if (!isExpired) {
+                            iframe.current.contentWindow.postMessage({token: response?.accessToken}, '*');
+                        }
+                    });
+                }
+            }, false);
+        }
+
+        return () => {
+            window.removeEventListener('message', function (e) {
+                e.stopPropagation();
+            });
+        }
     }, [playedId, serverToken]);
 
     useEffect(() => {

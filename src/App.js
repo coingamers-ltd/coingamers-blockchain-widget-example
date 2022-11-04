@@ -1,8 +1,9 @@
 import './App.css';
-import {Box, Button, Container, FormGroup, Grid, Paper, TextField} from "@mui/material";
+import {Alert, Box, Button, Container, FormGroup, Grid, Paper, Snackbar, TextField} from "@mui/material";
 import Widget from "./Widget";
 import {clientTokenRequest, serverTokenRequest} from "./requests";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useJwt} from "react-jwt";
 
 const sxStyle = {
     root: {
@@ -19,11 +20,25 @@ function App() {
     const [serverToken, setServerToken] = useState('');
     const [bearerToken, setBearerToken] = useState('');
     const [loadWidget, setLoadWidget] = useState(false);
+    const [open, setOpen] = useState(false);
+    const {isExpired} = useJwt(serverToken);
     const [state, setState] = useState({
         clientId: 'dragon-race-server',
         clientSecret: '9vhm4ow4siekf2b8dix5zr3u7mldufdinuallal9jo1kq6r8',
         playerId: '00000000-0000-0000-0000-000000000002',
     })
+
+    const handleClose = (event, reason) => {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        if(isExpired && serverToken !== ''){
+            setOpen(true);
+            setLoadWidget(false);
+        }
+
+    },[isExpired]);
 
     const handleChanges = (e) => {
         setState(prevState => {
@@ -34,16 +49,12 @@ function App() {
     const serverTokenRequestAction = async () => {
 
         if (serverToken && bearerToken) {
-            setState({
-                clientId: '',
-                clientSecret: '',
-                playerId: '',
-            });
             setLoadWidget(false);
         }
         serverTokenRequest(state.clientId, state.clientSecret).then((response) => {
             console.info(response, 'serverTokenRequest');
             setServerToken(response?.accessToken)
+            setBearerToken('');
         });
     }
 
@@ -136,6 +147,11 @@ function App() {
                         <Widget playedId={state.playerId} bearerToken={bearerToken} serverToken={serverToken}/>}
                 </Grid>
             </Grid>
+            <Snackbar open={open} anchorOrigin={{ vertical:  'top', horizontal : 'center'}} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error"  sx={{width: '100%'}}>
+                    You server token has expired. Please update it.
+                </Alert>
+            </Snackbar>
         </div>);
 }
 
