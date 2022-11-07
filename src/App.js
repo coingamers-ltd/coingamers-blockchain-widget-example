@@ -17,11 +17,11 @@ const sxStyle = {
 
 function App() {
 
-    const [serverToken, setServerToken] = useState('');
+    const [serverToken, setServerToken] = useState(null);
     const [bearerToken, setBearerToken] = useState('');
     const [loadWidget, setLoadWidget] = useState(false);
     const [open, setOpen] = useState(false);
-    const {isExpired} = useJwt(serverToken);
+    const {isExpired, decodedToken} = useJwt(serverToken);
     const [state, setState] = useState({
         clientId: 'dragon-race-server',
         clientSecret: '9vhm4ow4siekf2b8dix5zr3u7mldufdinuallal9jo1kq6r8',
@@ -33,12 +33,12 @@ function App() {
     };
 
     useEffect(() => {
-        if(isExpired && serverToken !== ''){
+        if (isExpired && serverToken !== '' && decodedToken !== null) {
             setOpen(true);
             setLoadWidget(false);
         }
 
-    },[isExpired, serverToken]);
+    }, [isExpired, serverToken]);
 
     const handleChanges = (e) => {
         setState(prevState => {
@@ -52,8 +52,8 @@ function App() {
             setLoadWidget(false);
         }
         serverTokenRequest(state.clientId, state.clientSecret).then((response) => {
-            console.info(response, 'serverTokenRequest');
             setServerToken(response?.accessToken)
+            console.log(response?.accessToken)
             setBearerToken('');
         });
     }
@@ -106,7 +106,7 @@ function App() {
                                         <FormGroup>
                                             <TextField onChange={handleChanges}
                                                        disabled={!!serverToken} id="client-secret"
-                                                         name={'clientSecret'}
+                                                       name={'clientSecret'}
                                                        label="Client secret" variant="outlined"
                                                        defaultValue={state.clientSecret}/>
                                         </FormGroup>
@@ -115,7 +115,7 @@ function App() {
                                             <Button color={'warning'}
                                                     disabled={!serverToken || (!!serverToken && !!bearerToken)}
                                                     onClick={clientTokenRequestAction}
-                                                    variant="contained" >Request new client token</Button>
+                                                    variant="contained">Request new client token</Button>
                                         </FormGroup>
 
                                     </Grid>
@@ -128,7 +128,7 @@ function App() {
                                         <FormGroup>
                                             <Button color={'success'}
                                                     disabled={(!serverToken || !bearerToken) || loadWidget === true}
-                                                    onClick={loadWidgetAction} variant="contained" >Load
+                                                    onClick={loadWidgetAction} variant="contained">Load
                                                 the
                                                 widget</Button>
                                         </FormGroup>
@@ -143,12 +143,12 @@ function App() {
             </Container>
             <Grid container>
                 <Grid item xs={12}>
-                    {!!loadWidget &&
+                    {!!loadWidget && !isExpired &&
                         <Widget playedId={state.playerId} bearerToken={bearerToken} serverToken={serverToken}/>}
                 </Grid>
             </Grid>
-            <Snackbar open={open} anchorOrigin={{ vertical:  'top', horizontal : 'center'}} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="error"  sx={{width: '100%'}}>
+            <Snackbar open={open} anchorOrigin={{vertical: 'top', horizontal: 'center'}} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
                     You server token has expired. Please update it.
                 </Alert>
             </Snackbar>

@@ -11,11 +11,14 @@ const sxStyle = {
     }
 }
 
-function Widget({playedId, bearerToken, serverToken, isExpired}) {
+function Widget({playedId, bearerToken, serverToken}) {
     const iframe = useRef();
     const baseWidgetUrl = 'http://coingamers-widget-2.s3-website.eu-central-1.amazonaws.com/wallets-and-balances';
     const [fullURL, setFullUrl] = useState('');
 
+    console.log(playedId)
+    console.log(bearerToken)
+    console.log(serverToken)
     useEffect(() => {
 
         if (playedId && serverToken) {
@@ -25,14 +28,11 @@ function Widget({playedId, bearerToken, serverToken, isExpired}) {
                 if (e.data.expiredToken) {
                     console.warn('Token expired');
 
-                    //If the server token is expired, we need to request a new one.
-                    if (!isExpired) {
-                        //When the client token has expired, and you should send a new valid token through a postMessage with property token.
-                        clientTokenRequest(playedId, serverToken).then((response) => {
-                            iframe.current.contentWindow.postMessage({token: response?.accessToken}, '*');
+                    //When the client token has expired, and you should send a new valid token through a postMessage with property token.
+                    clientTokenRequest(playedId, serverToken).then((response) => {
+                        iframe.current.contentWindow.postMessage({token: response?.accessToken}, '*');
 
-                        });
-                    }
+                    });
 
                 }
             }, false);
@@ -43,7 +43,7 @@ function Widget({playedId, bearerToken, serverToken, isExpired}) {
                 e.stopPropagation();
             });
         }
-    }, [playedId, serverToken, isExpired]);
+    }, [playedId, serverToken]);
 
     useEffect(() => {
         if (bearerToken) {
